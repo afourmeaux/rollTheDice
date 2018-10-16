@@ -2,16 +2,26 @@
     <div>
         <h1>Roll the dice</h1>
 
-        <dice v-for="(dice, key) in diceList" :dice="dice" v-bind:key="key"/>
+        <dice v-for="(dice, key) in diceList" v-bind:key="key"
+              :faces="dice.faces"
+              :number="dice.number"
+              :name="dice.name"
+              :customFaces="dice.customFaces" />
+        <roll />
 
-        <diceResult />
+        <!--<rollResult />-->
+        <rollHistory />
+        <!--<cube />-->
         <!--<pyramide />-->
     </div>
 </template>
 
 <script>
     import dice from '@/modules/dice/components/dice';
-    import diceResult from '@/modules/dice/components/diceResult';
+    import rollResult from '@/modules/dice/components/rollResult';
+    import rollHistory from '@/modules/dice/components/rollHistory';
+    import roll from '@/modules/dice/components/roll';
+    import cube from '@/modules/dice/components/cube';
     import pyramide from '@/modules/dice/components/pyramide';
 
     export default {
@@ -36,8 +46,11 @@
         },
         components: {
             dice,
-            diceResult,
+            rollResult,
+            rollHistory,
+            cube,
             pyramide,
+            roll,
         },
     };
 </script>

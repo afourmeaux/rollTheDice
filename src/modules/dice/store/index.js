@@ -1,19 +1,20 @@
 const state = {
-    result: {
-        each: [0],
-        total: 0,
+    rollResult: {
+        each: [],
+        total: null,
     },
-    history: [],
+    rollHistory: [],
 };
 
 const getters = {
-    getResult: () => state.result,
+    getRollResult: () => state.rollResult,
+    getRollHistory: () => state.rollHistory,
 };
 
 const mutations = {
     setResult(store, result) {
-        state.history.push(state.result);
-        state.result = result;
+        state.rollResult = result;
+        state.rollHistory.unshift(result);
     },
 };
 

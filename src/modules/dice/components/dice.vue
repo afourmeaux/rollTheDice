@@ -1,8 +1,9 @@
 <template>
-    <button @click="rollDice(dice)">{{ diceName }}</button>
+    <button @click="rollDice">{{ Dice.name }}</button>
 </template>
 <script>
-    import rollDice from '../helpers/rollDice';
+    import { mapMutations } from 'vuex';
+    import Dice from '../helpers/Dice';
 
     export default {
         name: 'dice',
@@ -13,26 +14,39 @@
             };
         },
         props: {
-            dice: {
+            number: {
+                type: Number,
+                default: 1,
+            },
+            faces: {
+                type: Number,
+                default: 1,
+            },
+            name: {
+                type: String,
+                default: null,
+            },
+            customFaces: {
                 type: Object,
-                required: true,
             },
         },
         computed: {
-            diceNameFormat() {
-                return `${this.numberKey}D${this.facesKey}`;
-            },
-            diceName() {
-                if (this.dice.name) {
-                    return this.dice.name;
-                }
-                return this.diceNameFormat
-                    .replace(this.numberKey, this.dice.number)
-                    .replace(this.facesKey, this.dice.faces);
+            Dice() {
+                return new Dice({
+                    number: this.number,
+                    faces: this.faces,
+                    name: this.name,
+                    customFaces: this.customFaces,
+                });
             },
         },
         methods: {
-            rollDice,
+            rollDice() {
+                this.setResult(this.Dice.roll());
+            },
+            ...mapMutations([
+                'setResult',
+            ]),
         },
     };
 </script>
